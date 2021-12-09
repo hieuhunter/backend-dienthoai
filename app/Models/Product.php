@@ -25,6 +25,6 @@ class Product extends Model
 
     public function getImageUrlAttribute() 
     {
-        return 'http://localhost:8000' . $this->hinh;
+        return config('app.url') . $this->hinh;
     }
 }   
