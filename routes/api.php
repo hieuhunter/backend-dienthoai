@@ -38,7 +38,8 @@ Route::group(['middleware' => ['auth:api']], function () {
 });
 
 //
-Route::get('product', [ql_dienthoaiController::class, 'product']);  
+Route::get('product', [ql_dienthoaiController::class, 'product']);
+Route::get('slproduct', [ql_dienthoaiController::class, 'slproduct']);    
 Route::get('category', [ql_dienthoaiController::class, 'danhmuc']);
 Route::get('brand', [ql_dienthoaiController::class, 'thuonghieu']);
 Route::get('category/{id}', [ql_dienthoaiController::class, 'sptheodm']);

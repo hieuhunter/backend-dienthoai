@@ -22,7 +22,14 @@ class ql_dienthoaiController extends Controller
             'data' => $sp
         ], 200);
     }
-    
+    public function slproduct()
+    {
+        $slsp = Product::limit(5)->get();
+        return response()->json([
+            'success' => true,
+            'data' => $slsp
+        ], 200);
+    }
     public function ctproduct($id)
     {
         $sp = Product::where('id', $id)->first();
