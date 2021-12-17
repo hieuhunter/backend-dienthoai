@@ -30,6 +30,14 @@ class ql_dienthoaiController extends Controller
             'data' => $slsp
         ], 200);
     }
+    public function search(Request $request)
+    {
+        $search = Product::where('ten_sp', 'LIKE', '%' . $request->q . '%')->orWhere('gia',$request->q)->get();
+        return response()->json([
+            'success' => true,
+            'data' => $search  
+        ], 200);
+    }
     public function ctproduct($id)
     {
         $sp = Product::where('id', $id)->first();
