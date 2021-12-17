@@ -32,10 +32,16 @@ class ql_dienthoaiController extends Controller
     }
     public function search(Request $request)
     {
-        $search = Product::where('ten_sp', 'LIKE', '%' . $request->q . '%')->orWhere('gia',$request->q)->get();
+        $limit = $request->get('limit', 10);
+        $offset = $request->get('offset', 0);
+        $search = Product::where('ten_sp', 'LIKE', '%' . $request->q . '%')->orWhere('gia',$request->q)->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
+        $searchTotal = $search->count();
         return response()->json([
             'success' => true,
-            'data' => $search  
+            'data' => $search,
+            'pagination' => [
+                'total' => $searchTotal
+            ] 
         ], 200);
     }
     public function ctproduct($id)
