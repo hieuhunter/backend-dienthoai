@@ -33,9 +33,12 @@ class ql_dienthoaiController extends Controller
     public function search(Request $request)
     {
         $limit = $request->get('limit', 10);
-        $offset = $request->get('offset', 0);
-        $search = Product::where('ten_sp', 'LIKE', '%' . $request->q . '%')->orWhere('gia',$request->q)->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
-        $searchTotal = $search->count();
+        $offset = $request->get('offset', 1);
+
+        $product = new Product;
+
+        $searchTotal = $product->count();
+        $search = $product->where('ten_sp', 'LIKE', '%' . $request->q . '%')->orWhere('gia',$request->q)->orderBy('id', 'desc')->skip(($offset - 1) * $limit)->limit($limit)->get();
         return response()->json([
             'success' => true,
             'data' => $search,
